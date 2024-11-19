@@ -11,25 +11,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaViewHolder>{
+public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaViewHolder>{
     ArrayList<Comida> coleccion;
 
-    public ComidaAdapter(ArrayList<Comida> coleccion) {
+    public OfertaAdapter(ArrayList<Comida> coleccion) {
         this.coleccion = coleccion;
     }
 
     @NonNull
     @Override
-    public ComidaAdapter.ComidaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ComidaAdapter.ComidaViewHolder ComidaViewHolder =
-                new ComidaViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.ficha_comida,parent,false)
+    public OfertaAdapter.OfertaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        OfertaAdapter.OfertaViewHolder OfertaViewHolder =
+                new OfertaViewHolder(
+                        LayoutInflater.from(parent.getContext()).inflate(R.layout.ficha_oferta,parent,false)
                 );
-        return ComidaViewHolder;
+        return OfertaViewHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ComidaAdapter.ComidaViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull OfertaAdapter.OfertaViewHolder holder, int position) {
         Comida Comida = coleccion.get(position);
         holder.imageView.setImageResource(Comida.getImagen());
         holder.tv_titulo.setText(Comida.getTitulo());
@@ -44,12 +44,12 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
         return coleccion.size();
     }
 
-    public class ComidaViewHolder extends RecyclerView.ViewHolder{
+    public class OfertaViewHolder extends RecyclerView.ViewHolder{
         ImageView imageView;
         TextView tv_titulo;
         TextView tv_descripcion;
 
-        public ComidaViewHolder(@NonNull View itemView) {
+        public OfertaViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
             tv_titulo = itemView.findViewById(R.id.tv_titulo);

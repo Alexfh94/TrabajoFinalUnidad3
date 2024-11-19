@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Crear el adaptador
         ComidaAdapter ComidaAdapter = new ComidaAdapter(ComidaArrayList);
+        OfertaAdapter OfertaAdapter = new OfertaAdapter(ComidaArrayList);
 
         // Instanciar el RecyclerView
         RecyclerView rvComidas = findViewById(R.id.rv_Comidas);
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Asignar el adaptador al RecyclerView
         rvComidas.setAdapter(ComidaAdapter);
-        rvOfertas.setAdapter(ComidaAdapter);
+        rvOfertas.setAdapter(OfertaAdapter);
 
         // Código para el autoscroll
         final int speedScroll = 3000; // Tiempo de desplazamiento entre cada scroll (en milisegundos)
