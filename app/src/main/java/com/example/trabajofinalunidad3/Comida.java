@@ -5,20 +5,26 @@ public class Comida {
     private int imagen; // Ruta o URL de la imagen
     private String descripcion;
     private double precio;
-    private int imgBoton;
     private int imgOferta;
+    private TipoComida tipo;
 
+    // Enum para representar los tipos de cómics
+    public enum TipoComida {
+        CARNE,
+        PESCADO_Y_MARISCOS,
+        VEGETALES,
+        OTROS
+    }
 
 
     // Constructor
-    public Comida(String titulo, int imagen, String descripcion, double precio, int imgBoton, int imgOferta) {
+    public Comida(String titulo, int imagen, String descripcion, double precio, int imgOferta, TipoComida tipo) {
         this.titulo = titulo;
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.precio = precio;
-        this.imgBoton=imgBoton;
         this.imgOferta=imgOferta;
-
+        this.tipo=tipo;
     }
 
     // Getters y Setters
@@ -65,20 +71,20 @@ public class Comida {
         this.precio = precio;
     }
 
-    public int getImgBoton() {
-        return imgBoton;
-    }
-
-    public void setImgBoton(int imgBoton) {
-        this.imgBoton = imgBoton;
-    }
-
     public int getImgOferta() {
         return imgOferta;
     }
 
     public void setImgOferta(int imgOferta) {
         this.imgOferta = imgOferta;
+    }
+
+    public TipoComida getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(TipoComida tipo) {
+        this.tipo = tipo;
     }
 
     @Override
@@ -88,7 +94,6 @@ public class Comida {
                 ", imagen=" + imagen +
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
-                ", imgBoton=" + imgBoton +
                 ", imgOferta=" + imgOferta +
                 '}';
     }

@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="50dp"
         android:layout_margin="4dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
@@ -22,11 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/profileImg"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/profile_description"
+                android:scaleType="centerInside"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/profile" />
@@ -39,37 +42,45 @@
                 app:layout_constraintStart_toEndOf="@+id/profileImg"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/recentImg"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="2dp"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/recent_description"
+                android:scaleType="centerInside"
                 app:layout_constraintStart_toEndOf="@+id/spazer"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/recent" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/settingsImg"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="2dp"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/settings_description"
+                android:scaleType="centerInside"
                 app:layout_constraintStart_toEndOf="@+id/recentImg"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/settings" />
 
-            <ImageView
+            <ImageButton
                 android:id="@+id/cartImg"
                 android:layout_width="70dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="2dp"
+                android:background="?attr/selectableItemBackground"
+                android:contentDescription="@string/cart_description"
+                android:scaleType="centerInside"
                 app:layout_constraintStart_toEndOf="@+id/settingsImg"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/carrito" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     </LinearLayout>
 
