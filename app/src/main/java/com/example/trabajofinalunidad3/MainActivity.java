@@ -40,10 +40,10 @@ public class MainActivity extends AppCompatActivity {
                 new Comida("Fabada", R.drawable.fabada1, "Fabada asturiana tradicional", 14.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Frituras de Pescado", R.drawable.frituraspescado1, "Fritura variada de pescado fresco", 12.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
                 new Comida("Hamburguesa", R.drawable.hamburguesa1, "Hamburguesa completa con queso", 9.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
-                new Comida("Huevos", R.drawable.huevos1, "Huevos estrellados con patatas", 7.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
+                new Comida("Huevos Rotos", R.drawable.huevos1, "Huevos estrellados con patatas", 7.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Lasagna", R.drawable.lasagna1, "Lasagna clásica de carne y queso", 11.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
                 new Comida("Macarrones", R.drawable.macarrones1, "Macarrones con salsa boloñesa", 8.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
-                new Comida("Milanesas", R.drawable.milanesa1, "Milanesas de pollo empanadas", 12.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
+                new Comida("Milanesa", R.drawable.milanesa1, "Milanesas de pollo empanadas", 12.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
                 new Comida("Navajas", R.drawable.navajas1, "Navajas a la plancha con limón", 17.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
                 new Comida("Paella", R.drawable.paella1, "Paella valenciana tradicional", 18.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Pizza", R.drawable.pizza1, "Pizza margarita al horno", 13.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
@@ -53,7 +53,17 @@ public class MainActivity extends AppCompatActivity {
                 new Comida("Spaghetti", R.drawable.spagueti1, "Spaghetti a la carbonara", 11.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Sushi", R.drawable.sushi1, "Sushi variado fresco", 22.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Tacos", R.drawable.tacos1, "Tacos mexicanos con guacamole", 9.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
-                new Comida("Tortilla", R.drawable.tortilla1, "Tortilla de patatas tradicional", 6.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES)
+                new Comida("Tortilla", R.drawable.tortilla1, "Tortilla de patatas tradicional", 6.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
+                new Comida("Pisto", R.drawable.pisto1, "Guiso de verduras con tomate al estilo manchego", 8.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
+                new Comida("Gazpacho", R.drawable.gazpacho1, "Sopa fría de tomate y verduras típica andaluza", 6.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
+                new Comida("Escalivada", R.drawable.escalivada1, "Verduras asadas al estilo catalán", 7.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
+                new Comida("Merluza", R.drawable.merluza1, "Merluza cocida con patatas y pimentón", 18.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
+                new Comida("Calamares", R.drawable.calamares1, "Anillas de calamar rebozadas y fritas", 12.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
+                new Comida("Bacalao ", R.drawable.bacalao1, "Bacalao con emulsión de aceite y ajo al estilo vasco", 19.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
+                new Comida("Salmorejo", R.drawable.salmorejo1, "Crema fría de tomate con jamón y huevo", 7.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
+                new Comida("Espinacas", R.drawable.espinacas1, "Espinacas salteadas con pasas y piñones", 9.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
+                new Comida("Lentejas", R.drawable.lentejas1, "Lentejas estofadas con verduras y chorizo", 9.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
+
         }));
 
         ArrayList<Comida> ofertaArrayList = new ArrayList<>();
