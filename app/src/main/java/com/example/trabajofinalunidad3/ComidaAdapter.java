@@ -34,6 +34,7 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
         holder.imageView.setImageResource(Comida.getImagen());
         holder.tv_titulo.setText(Comida.getTitulo());
         holder.tv_descripcion.setText(Comida.getDescripcion());
+        holder.tv_precio.setText(String.valueOf(Comida.getPrecio())+"€");
 
 
     }
@@ -48,12 +49,14 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
         ImageView imageView;
         TextView tv_titulo;
         TextView tv_descripcion;
+        TextView tv_precio;
 
         public ComidaViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView);
+            imageView = itemView.findViewById(R.id.imgComida);
             tv_titulo = itemView.findViewById(R.id.tv_titulo);
             tv_descripcion = itemView.findViewById(R.id.tv_descripcion);
+            tv_precio = itemView.findViewById(R.id.tv_precio);
         }
     }
 }

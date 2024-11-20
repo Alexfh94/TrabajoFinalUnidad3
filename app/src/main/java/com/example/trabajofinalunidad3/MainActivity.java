@@ -2,12 +2,14 @@ package com.example.trabajofinalunidad3;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.Switch;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -15,29 +17,52 @@ public class MainActivity extends AppCompatActivity {
     private Runnable runnable;
     private boolean isAutoScrollEnabled = true; // Variable para controlar el estado del autoscroll
     private int lastPosition = 0; // Variable para almacenar la última posición del RecyclerView
+    private Random random = new Random(); // Generador de números aleatorios
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Crear conjunto de datos
-        ArrayList<Comida> ComidaArrayList = new ArrayList<>(Arrays.asList(new Comida[]{
-                new Comida("Ensalada", R.drawable.ensalada1, "Test descripción", 15, R.drawable.boton_carrito, 1),
-                new Comida("Pizza", R.drawable.pizza1, "Test descripción", 13, R.drawable.boton_carrito, 1),
-                new Comida("Ensalada", R.drawable.ensalada1, "Test descripción", 15, R.drawable.boton_carrito, 1),
-                new Comida("Pizza", R.drawable.pizza1, "Test descripción", 13, R.drawable.boton_carrito, 1),
-                new Comida("Ensalada", R.drawable.ensalada1, "Test descripción", 15, R.drawable.boton_carrito, 1),
-                new Comida("Pizza", R.drawable.pizza1, "Test descripción", 13, R.drawable.boton_carrito, 1),
-                new Comida("Ensalada", R.drawable.ensalada1, "Test descripción", 15, R.drawable.boton_carrito, 1),
-                new Comida("Pizza", R.drawable.pizza1, "Test descripción", 13, R.drawable.boton_carrito, 1),
+        int diez = R.drawable.ofertadiez;
+        int veinte = R.drawable.ofertaventicinco;
+        int dosxuno = R.drawable.oferta2x1;
 
-                // Agrega más items si es necesario
+        // Crear conjunto de datos
+        ArrayList<Comida> comidasArrayList = new ArrayList<>(Arrays.asList(new Comida[]{
+
+                new Comida("Ensalada", R.drawable.ensalada1, "Test descripción", 15, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
+                new Comida("Pizza", R.drawable.pizza1, "Test descripción", 13, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
+                new Comida("Ensalada", R.drawable.ensalada1, "Test descripción", 15, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
+                new Comida("Pizza", R.drawable.pizza1, "Test descripción", 13, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
+                new Comida("Ensalada", R.drawable.ensalada1, "Test descripción", 15, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
+                new Comida("Pizza", R.drawable.pizza1, "Test descripción", 13, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
+                new Comida("Ensalada", R.drawable.ensalada1, "Test descripción", 15, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
+                new Comida("Pizza", R.drawable.pizza1, "Test descripción", 13, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
+                new Comida("Ensalada", R.drawable.ensalada1, "Test descripción", 15, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
+                new Comida("Pizza", R.drawable.pizza1, "Test descripción", 13, R.drawable.boton_carrito, getRandomOferta(diez, veinte, dosxuno)),
         }));
 
+        ArrayList<Comida> ofertaArrayList = new ArrayList<>();
+        ArrayList<Comida> comidaArrayList = new ArrayList<>();
+        for (int i = 0; i < comidasArrayList.size(); i++) {
+            if(comidasArrayList.get(i).getImgOferta()!= 0){
+
+                ofertaArrayList.add(comidasArrayList.get(i));
+
+            }
+            else{
+                comidaArrayList.add(comidasArrayList.get(i));
+            }
+        }
+
+
+
+
+
         // Crear el adaptador
-        ComidaAdapter ComidaAdapter = new ComidaAdapter(ComidaArrayList);
-        OfertaAdapter OfertaAdapter = new OfertaAdapter(ComidaArrayList);
+        ComidaAdapter ComidaAdapter = new ComidaAdapter(comidaArrayList);
+        OfertaAdapter OfertaAdapter = new OfertaAdapter(ofertaArrayList);
 
         // Instanciar el RecyclerView
         RecyclerView rvComidas = findViewById(R.id.rv_Comidas);
@@ -58,11 +83,21 @@ public class MainActivity extends AppCompatActivity {
         runnable = new Runnable() {
             @Override
             public void run() {
-                if (lastPosition >= ComidaArrayList.size()) {
-                    lastPosition = 0; // Reinicia a la primera posición si llegas al final
+
+                // Obtener el elemento actual y agregarlo al final de la lista
+                Comida comidaActual = ofertaArrayList.get(lastPosition);
+                ofertaArrayList.add(comidaActual);
+
+                // Notificar al adaptador que un nuevo elemento fue insertado
+                OfertaAdapter.notifyItemInserted(ofertaArrayList.size() - 1);
+
+                if(lastPosition==0 && ofertaArrayList.size()>3){
+                    lastPosition = 3;
                 }
+                // Realizar el desplazamiento suave al último elemento añadido
                 rvOfertas.smoothScrollToPosition(lastPosition++);
 
+                // Reiniciar el ciclo del autoscroll si está habilitado
                 if (isAutoScrollEnabled) {
                     handler.postDelayed(this, speedScroll); // Continuar el autoscroll
                 }
@@ -96,5 +131,16 @@ public class MainActivity extends AppCompatActivity {
                 handler.removeCallbacks(runnable); // Detener el autoscroll
             }
         });
+    }
+
+    // Método para obtener una oferta aleatoria con peso
+    private int getRandomOferta(int diez, int veinte, int dosxuno) {
+        if (random.nextInt(2) == 0) { // 50% de probabilidad para 0
+            return 0;
+        } else {
+            // Selecciona aleatoriamente una de las tres ofertas
+            int[] ofertas = {diez, veinte, dosxuno};
+            return ofertas[random.nextInt(ofertas.length)];
+        }
     }
 }

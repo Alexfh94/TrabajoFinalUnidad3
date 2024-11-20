@@ -6,18 +6,18 @@ public class Comida {
     private String descripcion;
     private double precio;
     private int imgBoton;
-    private int oferta;
+    private int imgOferta;
 
 
 
     // Constructor
-    public Comida(String titulo, int imagen, String descripcion, double precio, int imgBoton, int oferta) {
+    public Comida(String titulo, int imagen, String descripcion, double precio, int imgBoton, int imgOferta) {
         this.titulo = titulo;
         this.imagen = imagen;
         this.descripcion = descripcion;
         this.precio = precio;
         this.imgBoton=imgBoton;
-        this.oferta=oferta;
+        this.imgOferta=imgOferta;
 
     }
 
@@ -47,7 +47,18 @@ public class Comida {
     }
 
     public double getPrecio() {
-        return precio;
+        double finalPrecio;
+
+        if (imgOferta == 2131165423) {
+            finalPrecio = 0.9 * precio;
+        } else if (imgOferta == 2131165424) {
+            finalPrecio = 0.75 * precio;
+        } else {
+            finalPrecio = precio;
+        }
+
+        // Redondear a 2 decimales
+        return Math.round(finalPrecio * 100.0) / 100.0;
     }
 
     public void setPrecio(double precio) {
@@ -62,17 +73,23 @@ public class Comida {
         this.imgBoton = imgBoton;
     }
 
-    public int getOferta() {
-        return oferta;
+    public int getImgOferta() {
+        return imgOferta;
     }
 
-    public void setOferta(int oferta) {
-        this.oferta = oferta;
+    public void setImgOferta(int imgOferta) {
+        this.imgOferta = imgOferta;
     }
 
-    // Método toString para mostrar la información del cómic
     @Override
     public String toString() {
-        return "Comida [Título: " + titulo + ", Imagen: " + imagen + ", Descripcion: " + descripcion + "]";
+        return "Comida{" +
+                "titulo='" + titulo + '\'' +
+                ", imagen=" + imagen +
+                ", descripcion='" + descripcion + '\'' +
+                ", precio=" + precio +
+                ", imgBoton=" + imgBoton +
+                ", imgOferta=" + imgOferta +
+                '}';
     }
 }

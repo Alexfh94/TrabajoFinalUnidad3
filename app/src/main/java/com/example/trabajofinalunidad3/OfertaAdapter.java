@@ -31,9 +31,10 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
     @Override
     public void onBindViewHolder(@NonNull OfertaAdapter.OfertaViewHolder holder, int position) {
         Comida Comida = coleccion.get(position);
-        holder.imageView.setImageResource(Comida.getImagen());
+        holder.imgComida.setImageResource(Comida.getImagen());
         holder.tv_titulo.setText(Comida.getTitulo());
-        holder.tv_descripcion.setText(Comida.getDescripcion());
+        holder.tv_precio.setText(String.valueOf(Comida.getPrecio())+"€");
+        holder.imgOferta.setImageResource(Comida.getImgOferta());
 
 
     }
@@ -45,15 +46,17 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
     }
 
     public class OfertaViewHolder extends RecyclerView.ViewHolder{
-        ImageView imageView;
+        ImageView imgComida;
         TextView tv_titulo;
-        TextView tv_descripcion;
+        TextView tv_precio;
+        ImageView imgOferta;
 
         public OfertaViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.imageView);
+            imgComida = itemView.findViewById(R.id.imgComida);
             tv_titulo = itemView.findViewById(R.id.tv_titulo);
-            tv_descripcion = itemView.findViewById(R.id.tv_descripcion);
+            tv_precio = itemView.findViewById(R.id.tv_precio);
+            imgOferta = itemView.findViewById(R.id.imgOferta);
         }
     }
 }
