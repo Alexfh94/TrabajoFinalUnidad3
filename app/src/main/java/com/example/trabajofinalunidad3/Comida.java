@@ -11,7 +11,7 @@ public class Comida {
     // Enum para representar los tipos de cómics
     public enum TipoComida {
         CARNE,
-        PESCADO_Y_MARISCOS,
+        PESCADO,
         VEGETALES,
         OTROS
     }
@@ -55,9 +55,9 @@ public class Comida {
     public double getPrecio() {
         double finalPrecio;
 
-        if (imgOferta == 2131165423) {
+        if (imgOferta == 2131165439) {
             finalPrecio = 0.9 * precio;
-        } else if (imgOferta == 2131165424) {
+        } else if (imgOferta == 2131165440) {
             finalPrecio = 0.75 * precio;
         } else {
             finalPrecio = precio;

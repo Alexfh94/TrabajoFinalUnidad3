@@ -1,4 +1,13 @@
 <resources>
+
+    <string-array name="tipo_comida_opciones">
+        <item>Todos</item>
+        <item>Carne</item>
+        <item>Pescado</item>
+        <item>Vegetales</item>
+        <item>Otros</item>
+    </string-array>
+
     <string name="app_name">TrabajoFinalUnidad3</string>
     <string name="profile_description">Perfil</string>
     <string name="recent_description">Recientes</string>

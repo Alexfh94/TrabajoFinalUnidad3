@@ -2,7 +2,14 @@ package com.example.trabajofinalunidad3;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private int lastPosition = 0; // Variable para almacenar la última posición del RecyclerView
     private Random random = new Random(); // Generador de números aleatorios
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,25 +39,25 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Comida> comidasArrayList = new ArrayList<>(Arrays.asList(new Comida[]{
                 new Comida("Albondigas", R.drawable.albondigas1, "Albóndigas caseras con salsa de tomate", 10.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
                 new Comida("Bistec", R.drawable.bistec1, "Bistec de ternera a la parrilla", 15.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
-                new Comida("Boquerones", R.drawable.boquerones1, "Boquerones frescos marinados", 8.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
+                new Comida("Boquerones", R.drawable.boquerones1, "Boquerones frescos marinados", 8.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO),
                 new Comida("Caracoles", R.drawable.caracoles1, "Caracoles en salsa de hierbas", 12.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
-                new Comida("Centollo", R.drawable.centollo1, "Centollo gallego fresco", 25.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
+                new Comida("Centollo", R.drawable.centollo1, "Centollo gallego fresco", 25.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO),
                 new Comida("Croquetas", R.drawable.croquetas1, "Croquetas de jamón ibérico", 7.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
                 new Comida("Curry", R.drawable.curry1, "Curry de pollo con arroz basmati", 13.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
                 new Comida("Ensalada", R.drawable.ensalada1, "Ensalada fresca con vinagreta", 6.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
                 new Comida("Fabada", R.drawable.fabada1, "Fabada asturiana tradicional", 14.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
-                new Comida("Frituras de Pescado", R.drawable.frituraspescado1, "Fritura variada de pescado fresco", 12.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
+                new Comida("Frituras de Pescado", R.drawable.frituraspescado1, "Fritura variada de pescado fresco", 12.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO),
                 new Comida("Hamburguesa", R.drawable.hamburguesa1, "Hamburguesa completa con queso", 9.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
                 new Comida("Huevos Rotos", R.drawable.huevos1, "Huevos estrellados con patatas", 7.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Lasagna", R.drawable.lasagna1, "Lasagna clásica de carne y queso", 11.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
                 new Comida("Macarrones", R.drawable.macarrones1, "Macarrones con salsa boloñesa", 8.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
                 new Comida("Milanesa", R.drawable.milanesa1, "Milanesas de pollo empanadas", 12.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
-                new Comida("Navajas", R.drawable.navajas1, "Navajas a la plancha con limón", 17.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
+                new Comida("Navajas", R.drawable.navajas1, "Navajas a la plancha con limón", 17.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO),
                 new Comida("Paella", R.drawable.paella1, "Paella valenciana tradicional", 18.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Pizza", R.drawable.pizza1, "Pizza margarita al horno", 13.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Pollo", R.drawable.pollo1, "Pollo asado con especias", 10.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.CARNE),
-                new Comida("Pulpo", R.drawable.pulpo1, "Pulpo a la gallega con pimentón", 20.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
-                new Comida("Sardinas", R.drawable.sardinas1, "Sardinas asadas con ajo", 9.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
+                new Comida("Pulpo", R.drawable.pulpo1, "Pulpo a la gallega con pimentón", 20.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO),
+                new Comida("Sardinas", R.drawable.sardinas1, "Sardinas asadas con ajo", 9.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO),
                 new Comida("Spaghetti", R.drawable.spagueti1, "Spaghetti a la carbonara", 11.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Sushi", R.drawable.sushi1, "Sushi variado fresco", 22.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
                 new Comida("Tacos", R.drawable.tacos1, "Tacos mexicanos con guacamole", 9.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.OTROS),
@@ -57,14 +65,18 @@ public class MainActivity extends AppCompatActivity {
                 new Comida("Pisto", R.drawable.pisto1, "Guiso de verduras con tomate al estilo manchego", 8.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
                 new Comida("Gazpacho", R.drawable.gazpacho1, "Sopa fría de tomate y verduras típica andaluza", 6.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
                 new Comida("Escalivada", R.drawable.escalivada1, "Verduras asadas al estilo catalán", 7.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
-                new Comida("Merluza", R.drawable.merluza1, "Merluza cocida con patatas y pimentón", 18.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
-                new Comida("Calamares", R.drawable.calamares1, "Anillas de calamar rebozadas y fritas", 12.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
-                new Comida("Bacalao ", R.drawable.bacalao1, "Bacalao con emulsión de aceite y ajo al estilo vasco", 19.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO_Y_MARISCOS),
+                new Comida("Merluza", R.drawable.merluza1, "Merluza cocida con patatas y pimentón", 18.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO),
+                new Comida("Calamares", R.drawable.calamares1, "Anillas de calamar rebozadas y fritas", 12.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO),
+                new Comida("Bacalao ", R.drawable.bacalao1, "Bacalao con emulsión de aceite y ajo al estilo vasco", 19.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.PESCADO),
                 new Comida("Salmorejo", R.drawable.salmorejo1, "Crema fría de tomate con jamón y huevo", 7.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
                 new Comida("Espinacas", R.drawable.espinacas1, "Espinacas salteadas con pasas y piñones", 9.0, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
                 new Comida("Lentejas", R.drawable.lentejas1, "Lentejas estofadas con verduras y chorizo", 9.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
 
         }));
+        for (int i = 0; i < comidasArrayList.size(); i++) {
+            Log.i("test", ""+comidasArrayList.get(i).getImgOferta());
+        }
+
 
         ArrayList<Comida> ofertaArrayList = new ArrayList<>();
         ArrayList<Comida> comidaArrayList = new ArrayList<>();
@@ -97,6 +109,42 @@ public class MainActivity extends AppCompatActivity {
         // Asignar el adaptador al RecyclerView
         rvComidas.setAdapter(ComidaAdapter);
         rvOfertas.setAdapter(OfertaAdapter);
+
+        Spinner spinnerTipoComida = findViewById(R.id.spinner_tipo_comida);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tipo_comida_opciones, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerTipoComida.setAdapter(adapter);
+
+        // Establecer el listener para el cambio de selección en el Spinner
+        spinnerTipoComida.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                String selectedItem = (String) parentView.getItemAtPosition(position);
+                // Filtrar la lista según la selección
+                comidaArrayList.clear();
+                if (selectedItem.equals("Todos")) {
+                    comidaArrayList.addAll(comidasArrayList);
+                } else {
+                    for (Comida comida : comidasArrayList) {
+                        if (comida.getTipo().toString().equalsIgnoreCase(selectedItem)) {
+                            comidaArrayList.add(comida);
+                        }
+                    }
+                }
+                ComidaAdapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // Si no hay selección, mostrar todas las comidas
+                comidaArrayList.addAll(comidasArrayList);
+            }
+        });
+
+
+
+
 
         // Código para el autoscroll
         final int speedScroll = 3000; // Tiempo de desplazamiento entre cada scroll (en milisegundos)
@@ -150,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
                 isAutoScrollEnabled = false; // Deshabilitar autoscroll
                 handler.removeCallbacks(runnable); // Detener el autoscroll
             }
+
         });
     }
 
@@ -163,4 +212,6 @@ public class MainActivity extends AppCompatActivity {
             return ofertas[random.nextInt(ofertas.length)];
         }
     }
+
+
 }

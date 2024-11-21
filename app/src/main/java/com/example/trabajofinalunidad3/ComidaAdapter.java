@@ -59,4 +59,6 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
             tv_precio = itemView.findViewById(R.id.tv_precio);
         }
     }
+
+
 }
