@@ -52,6 +52,8 @@ public class Comida {
         this.descripcion = descripcion;
     }
 
+    //Calculo del precio segun la oferta asociada
+
     public double getPrecio() {
         double finalPrecio;
 
@@ -95,6 +97,7 @@ public class Comida {
                 ", descripcion='" + descripcion + '\'' +
                 ", precio=" + precio +
                 ", imgOferta=" + imgOferta +
+                ", tipo=" + tipo +
                 '}';
     }
 }

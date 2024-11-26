@@ -18,16 +18,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnClickComida, OfertaAdapter.OnClickOferta {
 
-    private Handler handler = new Handler();
+    private final Handler handler = new Handler();
     private Runnable runnable;
     private boolean isAutoScrollEnabled = true;
     private int lastPosition = 0;
-    private Random random = new Random();
+    private final Random random = new Random();
+    private ArrayList<Comida> comidaArrayList;
+    private ArrayList<Comida> ofertaArrayList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Inicializa los datos y genera la lista de comidas
     private ArrayList<Comida> initializeData() {
-        ArrayList<Comida> comidasArrayList = new ArrayList<>(Arrays.asList(
+        return new ArrayList<>(Arrays.asList(
                 new Comida("Albondigas", R.drawable.albondigas1, "Albóndigas caseras con salsa de tomate", 10.5, getRandomOferta(), Comida.TipoComida.CARNE),
                 new Comida("Bistec", R.drawable.bistec1, "Bistec de ternera a la parrilla", 15.0, getRandomOferta(), Comida.TipoComida.CARNE),
                 new Comida("Boquerones", R.drawable.boquerones1, "Boquerones frescos marinados", 8.0, getRandomOferta(), Comida.TipoComida.PESCADO),
@@ -75,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
                 new Comida("Lentejas", R.drawable.lentejas1, "Lentejas estofadas con verduras y chorizo", 9.5, getRandomOferta(), Comida.TipoComida.VEGETALES)
 
                 ));
-        return comidasArrayList;
     }
 
     // Configura los botones de imagen con toasts
@@ -101,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
     // Configura los RecyclerViews y el spinner
     private void setupRecyclerViews(ArrayList<Comida> comidasArrayList) {
         try {
-            ArrayList<Comida> ofertaArrayList = new ArrayList<>();
-            ArrayList<Comida> comidaArrayList = new ArrayList<>();
+            ofertaArrayList = new ArrayList<>();
+            comidaArrayList = new ArrayList<>();
 
             for (Comida comida : comidasArrayList) {
                 if (comida.getImgOferta() != 0) {
@@ -112,8 +115,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-            ComidaAdapter comidaAdapter = new ComidaAdapter(comidaArrayList);
-            OfertaAdapter ofertaAdapter = new OfertaAdapter(ofertaArrayList);
+            ComidaAdapter comidaAdapter = new ComidaAdapter(comidaArrayList, MainActivity.this);
+            OfertaAdapter ofertaAdapter = new OfertaAdapter(ofertaArrayList, MainActivity.this);
 
             RecyclerView rvComidas = findViewById(R.id.rv_Comidas);
             RecyclerView rvOfertas = findViewById(R.id.rv_Ofertas);
@@ -201,5 +204,36 @@ public class MainActivity extends AppCompatActivity {
     private int getRandomOferta() {
         int[] ofertas = {1, 2, 3};
         return random.nextInt(2) == 0 ? 0 : ofertas[random.nextInt(ofertas.length)];
+    }
+
+    // Metodo para la funcion al hacer click en el boton "Añadir al carrito" del recyclerView de comidas
+    @Override
+    public void onClickCarrito(View view, int position) {
+
+       Comida comida =comidaArrayList.get(position);
+
+        String mensaje = comida.getTitulo()+"\n Añadido al carrito.";
+        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+    }
+
+    // Metodo para la funcion al hacer click en el elemento del recyclerView de comidas, fuera del boton
+    @Override
+    public void onClickCardComida(View view, int position) {
+
+        Comida comida =comidaArrayList.get(position);
+
+        String mensaje = comida.getTitulo()+"\n " + comida.getPrecio()+"€";
+        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+
+    }
+
+    // Metodo para la funcion al hacer click en el elemento del recyclerView de ofertas
+    public void onClickCardOferta(View view, int position) {
+
+        Comida comida =ofertaArrayList.get(position);
+
+        String mensaje = comida.getTitulo()+" "+comida.getPrecio()+"€"+"\nAñadido al carrito.";
+        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+
     }
 }
