@@ -17,9 +17,9 @@
     <string name="t_tulo_del_plato">Título do prato</string>
     <string name="breve_descripci_n_del_plato_breve_descripci_n_del_plato">Breve descrición do prato Breve descrición do prato</string>
     <string name="_12_99">12,99 €</string>
-    <string name="a_adir_al_carrito">Engadir ao carrito</string>
+    <string name="a_adir_al_carrito">Engadir ao carro</string>
     <string name="ofertas_del_dia">OFERTAS DO DÍA</string>
-    <string name="autoscroll">AutoDesplazamento</string>
+    <string name="autoscroll">AutoScroll</string>
     <string name="oferta">Oferta</string>
     <string name="carrito">Carrito</string>
     <string name="a_adido_al_carrito">\n Engadido ao carrito.</string>
