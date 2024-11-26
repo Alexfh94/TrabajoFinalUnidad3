@@ -48,7 +48,7 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
         Comida comida = coleccion.get(position);
         holder.imgComida.setImageResource(comida.getImagen());
         holder.tv_titulo.setText(comida.getTitulo());
-        holder.tv_precio.setText(String.valueOf(comida.getPrecio()) + "€");
+        holder.tv_precio.setText(comida.getPrecio() + "€");
 
         int imgOfertaResId;
         switch (comida.getImgOferta()) {

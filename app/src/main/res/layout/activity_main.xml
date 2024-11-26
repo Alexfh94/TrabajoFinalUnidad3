@@ -129,7 +129,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="84dp"
-        android:text="OFERTAS DEL DIA"
+        android:text="@string/ofertas_del_dia"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/switch1"
@@ -143,7 +143,7 @@
         android:layout_marginTop="0dp"
         android:checked="true"
         android:minHeight="48dp"
-        android:text="AutoScroll"
+        android:text="@string/autoscroll"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/separator2" />
 

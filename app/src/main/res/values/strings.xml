@@ -13,5 +13,14 @@
     <string name="recent_description">Recientes</string>
     <string name="settings_description">Configuración</string>
     <string name="cart_description">Carrito</string>
+    <string name="imagen_del_plato">Imagen del plato</string>
+    <string name="t_tulo_del_plato">Título del plato</string>
+    <string name="breve_descripci_n_del_plato_breve_descripci_n_del_plato">Breve descripción del plato Breve descripción del plato</string>
+    <string name="_12_99">$12.99</string>
+    <string name="a_adir_al_carrito">Añadir al carrito</string>
+    <string name="ofertas_del_dia">OFERTAS DEL DIA</string>
+    <string name="autoscroll">AutoScroll</string>
+    <string name="oferta">Oferta</string>
+    <string name="carrito">Carrito</string>
 
 </resources>
