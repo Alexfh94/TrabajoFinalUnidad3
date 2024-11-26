@@ -22,5 +22,31 @@
     <string name="autoscroll">AutoScroll</string>
     <string name="oferta">Oferta</string>
     <string name="carrito">Carrito</string>
+    <string name="a_adido_al_carrito">\n Añadido al carrito.</string>
+    <string name="todos">Todos</string>
+    <string name="TAGM">MainActivity</string>
+    <string name="error_configurando_el_spinner">Error configurando el Spinner</string>
+    <string name="ninguna_opci_n_seleccionada_en_el_spinner">Ninguna opción seleccionada en el spinner</string>
+    <string name="error_configurando_los_recyclerviews">Error configurando los RecyclerViews</string>
+    <string name="error_configurando_los_imagebuttons">Error configurando los ImageButtons</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="EUR">€</string>
+    <string name="TAGC">ComidaAdapter</string>
+    <string name="creando_una_nueva_vista_para_una_tarjeta_de_comida">Creando una nueva vista para una tarjeta de comida</string>
+    <string name="posici_n_fuera_de_los_l_mites_de_la_colecci_n">"Posición fuera de los límites de la colección: "</string>
+    <string name="configurando_tarjeta_para_posici_n">"Configurando tarjeta para posición: "</string>
+    <string name="tarjeta_clicada_en_la_posici_n">"Tarjeta clicada en la posición: "</string>
+    <string name="bot_n_de_carrito_clicado_en_la_posici_n">"Botón de carrito clicado en la posición: "</string>
+    <string name="n_mero_total_de_elementos">"Número total de elementos: "</string>
+    <string name="vista_de_tarjeta_creada">Vista de tarjeta creada</string>
+    <string name="TAGO">OfertaAdapter</string>
+    <string name="creando_una_nueva_vista_para_una_tarjeta_de_oferta">Creando una nueva vista para una tarjeta de oferta</string>
+    <string name="posici_n_fuera_de_los_l_mites_de_la_colecci_nn">"Posición fuera de los límites de la colección: "</string>
+    <string name="comida_sin_oferta_asignada_en_la_posici_n">"Comida sin oferta asignada en la posición: "</string>
+    <string name="configurando_tarjeta_de_oferta_para_posici_n">"Configurando tarjeta de oferta para posición: "</string>
+    <string name="tarjeta_de_oferta_clicada_en_la_posici_n">"Tarjeta de oferta clicada en la posición: "</string>
+    <string name="n_mero_total_de_elementoss">"Número total de elementos: "</string>
+    <string name="vista_de_tarjeta_de_oferta_creada">Vista de tarjeta de oferta creada</string>
+
 
 </resources>

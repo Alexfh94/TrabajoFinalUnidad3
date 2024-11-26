@@ -1,5 +1,6 @@
 package com.example.trabajofinalunidad3;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +17,12 @@ import java.util.ArrayList;
 public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaViewHolder> {
     ArrayList<Comida> coleccion;
     OnClickComida listener;
+    Context context;
 
-    public ComidaAdapter(ArrayList<Comida> coleccion, OnClickComida listener) {
+    public ComidaAdapter(ArrayList<Comida> coleccion, OnClickComida listener, Context context) {
         this.coleccion = coleccion;
         this.listener = listener;
+        this.context = context;
     }
 
     /**
@@ -28,7 +31,8 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
     @NonNull
     @Override
     public ComidaAdapter.ComidaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("ComidaAdapter", "Creando una nueva vista para una tarjeta de comida");
+
+        Log.d(context.getString(R.string.TAGC), context.getString(R.string.creando_una_nueva_vista_para_una_tarjeta_de_comida));
         ComidaAdapter.ComidaViewHolder ComidaViewHolder =
                 new ComidaViewHolder(
                         LayoutInflater.from(parent.getContext()).inflate(R.layout.ficha_comida, parent, false)
@@ -42,7 +46,7 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
     @Override
     public void onBindViewHolder(@NonNull ComidaAdapter.ComidaViewHolder holder, int position) {
         if (position >= coleccion.size()) {
-            Log.e("ComidaAdapter", "Posición fuera de los límites de la colección: " + position);
+            Log.e(context.getString(R.string.TAGC), context.getString(R.string.posici_n_fuera_de_los_l_mites_de_la_colecci_n)+ position);
             return;
         }
 
@@ -50,17 +54,17 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
         holder.imageView.setImageResource(comida.getImagen());
         holder.tv_titulo.setText(comida.getTitulo());
         holder.tv_descripcion.setText(comida.getDescripcion());
-        holder.tv_precio.setText(comida.getPrecio() + "€");
+        holder.tv_precio.setText(comida.getPrecio() + context.getString(R.string.EUR));
 
-        Log.d("ComidaAdapter", "Configurando tarjeta para posición: " + position);
+        Log.d(context.getString(R.string.TAGC), context.getString(R.string.configurando_tarjeta_para_posici_n)+ position);
 
         holder.itemView.setOnClickListener(v -> {
-            Log.d("ComidaAdapter", "Tarjeta clicada en la posición: " + position);
+            Log.d(context.getString(R.string.TAGC), context.getString(R.string.tarjeta_clicada_en_la_posici_n)+ position);
             listener.onClickCardComida(v, holder.getAdapterPosition());
         });
 
         holder.btnAccion.setOnClickListener(v -> {
-            Log.d("ComidaAdapter", "Botón de carrito clicado en la posición: " + position);
+            Log.d(context.getString(R.string.TAGC), context.getString(R.string.bot_n_de_carrito_clicado_en_la_posici_n)+ position);
             listener.onClickCarrito(v, holder.getAdapterPosition());
         });
     }
@@ -70,7 +74,7 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
      */
     @Override
     public int getItemCount() {
-        Log.d("ComidaAdapter", "Número total de elementos: " + coleccion.size());
+        Log.d(context.getString(R.string.TAGC), context.getString(R.string.n_mero_total_de_elementos)+ coleccion.size());
         return coleccion.size();
     }
 
@@ -91,7 +95,7 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
             tv_descripcion = itemView.findViewById(R.id.tv_descripcion);
             tv_precio = itemView.findViewById(R.id.tv_precio);
             btnAccion = itemView.findViewById(R.id.btnCarrito);
-            Log.d("ComidaViewHolder", "Vista de tarjeta creada");
+            Log.d(context.getString(R.string.TAGC), context.getString(R.string.vista_de_tarjeta_creada));
         }
     }
 

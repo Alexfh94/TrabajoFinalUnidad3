@@ -29,7 +29,7 @@
         <ImageView
             android:id="@+id/imgComida"
             android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_height="110dp"
             android:contentDescription="@string/imagen_del_plato"
             android:scaleType="centerCrop"
             tools:srcCompat="@tools:sample/avatars" />
@@ -37,7 +37,7 @@
         <ImageView
             android:id="@+id/imgOferta"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="30dp"
             android:layout_marginTop="5dp"
             android:contentDescription="@string/oferta"
             tools:srcCompat="@drawable/oferta2x1" />
@@ -61,8 +61,8 @@
 
             <ImageView
                 android:id="@+id/imgCarrito"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginStart="2dp"
                 android:contentDescription="@string/carrito"
                 app:srcCompat="@drawable/boton_carrito" />

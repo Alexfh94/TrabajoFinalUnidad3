@@ -1,5 +1,6 @@
 package com.example.trabajofinalunidad3;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,12 @@ import java.util.ArrayList;
 public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaViewHolder> {
     ArrayList<Comida> coleccion;
     OnClickOferta listener;
+    Context context;
 
-    public OfertaAdapter(ArrayList<Comida> coleccion, OnClickOferta listener) {
+    public OfertaAdapter(ArrayList<Comida> coleccion, OnClickOferta listener, Context context) {
         this.coleccion = coleccion;
         this.listener = listener;
+        this.context = context;
     }
 
     /**
@@ -27,7 +30,7 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
     @NonNull
     @Override
     public OfertaAdapter.OfertaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d("OfertaAdapter", "Creando una nueva vista para una tarjeta de oferta");
+        Log.d(context.getString(R.string.TAGO), context.getString(R.string.creando_una_nueva_vista_para_una_tarjeta_de_oferta));
         OfertaAdapter.OfertaViewHolder OfertaViewHolder =
                 new OfertaViewHolder(
                         LayoutInflater.from(parent.getContext()).inflate(R.layout.ficha_oferta, parent, false)
@@ -41,14 +44,14 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
     @Override
     public void onBindViewHolder(@NonNull OfertaAdapter.OfertaViewHolder holder, int position) {
         if (position >= coleccion.size()) {
-            Log.e("OfertaAdapter", "Posición fuera de los límites de la colección: " + position);
+            Log.e(context.getString(R.string.TAGO), context.getString(R.string.posici_n_fuera_de_los_l_mites_de_la_colecci_nn)+ position);
             return;
         }
 
         Comida comida = coleccion.get(position);
         holder.imgComida.setImageResource(comida.getImagen());
         holder.tv_titulo.setText(comida.getTitulo());
-        holder.tv_precio.setText(comida.getPrecio() + "€");
+        holder.tv_precio.setText(comida.getPrecio() + context.getString(R.string.EUR));
 
         int imgOfertaResId;
         switch (comida.getImgOferta()) {
@@ -63,15 +66,15 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
                 break;
             default:
                 imgOfertaResId = 0;
-                Log.w("OfertaAdapter", "Comida sin oferta asignada en la posición: " + position);
+                Log.w(context.getString(R.string.TAGO), context.getString(R.string.comida_sin_oferta_asignada_en_la_posici_n)+ position);
                 break;
         }
 
         holder.imgOferta.setImageResource(imgOfertaResId);
-        Log.d("OfertaAdapter", "Configurando tarjeta de oferta para posición: " + position);
+        Log.d(context.getString(R.string.TAGO), context.getString(R.string.configurando_tarjeta_de_oferta_para_posici_n)+ position);
 
         holder.itemView.setOnClickListener(v -> {
-            Log.d("OfertaAdapter", "Tarjeta de oferta clicada en la posición: " + position);
+            Log.d(context.getString(R.string.TAGO), context.getString(R.string.tarjeta_de_oferta_clicada_en_la_posici_n)+ position);
             listener.onClickCardOferta(v, holder.getAdapterPosition());
         });
     }
@@ -81,7 +84,7 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
      */
     @Override
     public int getItemCount() {
-        Log.d("OfertaAdapter", "Número total de elementos: " + coleccion.size());
+        Log.d(context.getString(R.string.TAGO), context.getString(R.string.n_mero_total_de_elementoss)+ coleccion.size());
         return coleccion.size();
     }
 
@@ -100,7 +103,7 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
             tv_titulo = itemView.findViewById(R.id.tv_titulo);
             tv_precio = itemView.findViewById(R.id.tv_precio);
             imgOferta = itemView.findViewById(R.id.imgOferta);
-            Log.d("OfertaViewHolder", "Vista de tarjeta de oferta creada");
+            Log.d(context.getString(R.string.TAGO), context.getString(R.string.vista_de_tarjeta_de_oferta_creada));
         }
     }
 

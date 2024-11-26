@@ -1,5 +1,7 @@
 package com.example.trabajofinalunidad3;
 
+import static com.example.trabajofinalunidad3.R.string.coming_soon;
+
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
     // Inicializa los datos y genera la lista de comidas
     private ArrayList<Comida> initializeData() {
         return new ArrayList<>(Arrays.asList(
-                new Comida("Albondigas", R.drawable.albondigas1, "Albóndigas caseras con salsa de tomate", 10.5, getRandomOferta(), Comida.TipoComida.CARNE),
+                new Comida("Albóndigas", R.drawable.albondigas1, "Albóndigas caseras con salsa de tomate", 10.5, getRandomOferta(), Comida.TipoComida.CARNE),
                 new Comida("Bistec", R.drawable.bistec1, "Bistec de ternera a la parrilla", 15.0, getRandomOferta(), Comida.TipoComida.CARNE),
                 new Comida("Boquerones", R.drawable.boquerones1, "Boquerones frescos marinados", 8.0, getRandomOferta(), Comida.TipoComida.PESCADO),
                 new Comida("Caracoles", R.drawable.caracoles1, "Caracoles en salsa de hierbas", 12.0, getRandomOferta(), Comida.TipoComida.OTROS),
@@ -90,14 +92,14 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
             ImageButton imgButton4 = findViewById(R.id.cartImg);
 
             View.OnClickListener showToastListener = v ->
-                    Toast.makeText(MainActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, coming_soon, Toast.LENGTH_SHORT).show();
 
             imgButton1.setOnClickListener(showToastListener);
             imgButton2.setOnClickListener(showToastListener);
             imgButton3.setOnClickListener(showToastListener);
             imgButton4.setOnClickListener(showToastListener);
         } catch (Exception e) {
-            Log.e("MainActivity", "Error configurando los ImageButtons", e);
+            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_los_imagebuttons), e);
         }
     }
 
@@ -115,8 +117,8 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
                 }
             }
 
-            ComidaAdapter comidaAdapter = new ComidaAdapter(comidaArrayList, MainActivity.this);
-            OfertaAdapter ofertaAdapter = new OfertaAdapter(ofertaArrayList, MainActivity.this);
+            ComidaAdapter comidaAdapter = new ComidaAdapter(comidaArrayList, MainActivity.this, this);
+            OfertaAdapter ofertaAdapter = new OfertaAdapter(ofertaArrayList, MainActivity.this, this);
 
             RecyclerView rvComidas = findViewById(R.id.rv_Comidas);
             RecyclerView rvOfertas = findViewById(R.id.rv_Ofertas);
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
             setupSpinner(comidasArrayList, comidaArrayList, comidaAdapter);
             setupAutoScroll(rvOfertas, ofertaArrayList, ofertaAdapter);
         } catch (Exception e) {
-            Log.e("MainActivity", "Error configurando los RecyclerViews", e);
+            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_los_recyclerviews), e);
         }
     }
 
@@ -152,11 +154,11 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
 
                 @Override
                 public void onNothingSelected(AdapterView<?> parent) {
-                    Log.w("MainActivity", "Ninguna opción seleccionada en el spinner");
+                    Log.w(getString(R.string.TAGM), getString(R.string.ninguna_opci_n_seleccionada_en_el_spinner));
                 }
             });
         } catch (Exception e) {
-            Log.e("MainActivity", "Error configurando el Spinner", e);
+            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_el_spinner), e);
         }
     }
 
@@ -164,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
     private void filterComidas(ArrayList<Comida> comidasArrayList, ArrayList<Comida> comidaArrayList, String selectedItem) {
         comidaArrayList.clear();
         for (Comida comida : comidasArrayList) {
-            if ((selectedItem.equals("Todos") || comida.getTipo().toString().equalsIgnoreCase(selectedItem) )&& comida.getImgOferta()==0 ) {
+            if ((selectedItem.equals(getString(R.string.todos)) || comida.getTipo().toString().equalsIgnoreCase(selectedItem) )&& comida.getImgOferta()==0 ) {
                 comidaArrayList.add(comida);
             }
         }
@@ -212,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
 
        Comida comida =comidaArrayList.get(position);
 
-        String mensaje = comida.getTitulo()+"\n Añadido al carrito.";
+        String mensaje = comida.getTitulo()+getString(R.string.a_adido_al_carrito);
         Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
@@ -222,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
 
         Comida comida =comidaArrayList.get(position);
 
-        String mensaje = comida.getTitulo()+"\n " + comida.getPrecio()+"€";
+        String mensaje = comida.getTitulo()+"\n " + comida.getPrecio()+getString(R.string.EUR);
         Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
 
     }
@@ -232,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
 
         Comida comida =ofertaArrayList.get(position);
 
-        String mensaje = comida.getTitulo()+" "+comida.getPrecio()+"€"+"\nAñadido al carrito.";
+        String mensaje = comida.getTitulo()+" "+comida.getPrecio()+getString(R.string.EUR)+getString(R.string.a_adido_al_carrito);
         Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
 
     }
