@@ -37,13 +37,13 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayList<Comida> comidasArrayList = initializeData();
+        ArrayList<Comida> comidasArrayList = generarArrayDatos();
         setupImageButtons();
         setupRecyclerViews(comidasArrayList);
     }
 
     // Inicializa los datos y genera la lista de comidas
-    private ArrayList<Comida> initializeData() {
+    private ArrayList<Comida> generarArrayDatos() {
         return new ArrayList<>(Arrays.asList(
                 new Comida("Albóndigas", R.drawable.albondigas1, "Albóndigas caseras con salsa de tomate", 10.5, getRandomOferta(), Comida.TipoComida.CARNE),
                 new Comida("Bistec", R.drawable.bistec1, "Bistec de ternera a la parrilla", 15.0, getRandomOferta(), Comida.TipoComida.CARNE),
@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                     String selectedItem = (String) parent.getItemAtPosition(position);
-                    filterComidas(comidasArrayList, comidaArrayList, selectedItem);
+                    filtroComidas(comidasArrayList, comidaArrayList, selectedItem);
                     comidaAdapter.notifyDataSetChanged();
                 }
 
@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
     }
 
     // Filtra las comidas según el tipo seleccionado
-    private void filterComidas(ArrayList<Comida> comidasArrayList, ArrayList<Comida> comidaArrayList, String selectedItem) {
+    private void filtroComidas(ArrayList<Comida> comidasArrayList, ArrayList<Comida> comidaArrayList, String selectedItem) {
         comidaArrayList.clear();
         for (Comida comida : comidasArrayList) {
             if ((selectedItem.equals(getString(R.string.todos)) || comida.getTipo().toString().equalsIgnoreCase(selectedItem) )&& comida.getImgOferta()==0 ) {
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
         return random.nextInt(2) == 0 ? 0 : ofertas[random.nextInt(ofertas.length)];
     }
 
-    // Metodo para la funcion al hacer click en el boton "Añadir al carrito" del recyclerView de comidas
+    // Metodo para la funcion al hacer click en el boton "Añadir al carrito" del RecyclerView de comidas
     @Override
     public void onClickCarrito(View view, int position) {
 
@@ -218,7 +218,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
         Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
     }
 
-    // Metodo para la funcion al hacer click en el elemento del recyclerView de comidas, fuera del boton
+    // Metodo para la funcion al hacer click en el elemento del RecyclerView de comidas, fuera del boton
     @Override
     public void onClickCardComida(View view, int position) {
 
@@ -229,7 +229,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
 
     }
 
-    // Metodo para la funcion al hacer click en el elemento del recyclerView de ofertas
+    // Metodo para la funcion al hacer click en el elemento del RecyclerView de ofertas
     public void onClickCardOferta(View view, int position) {
 
         Comida comida =ofertaArrayList.get(position);
