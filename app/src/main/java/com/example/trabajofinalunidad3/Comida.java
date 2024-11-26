@@ -55,9 +55,9 @@ public class Comida {
     public double getPrecio() {
         double finalPrecio;
 
-        if (imgOferta == 2131165439) {
+        if (imgOferta == 1) {
             finalPrecio = 0.9 * precio;
-        } else if (imgOferta == 2131165440) {
+        } else if (imgOferta == 2) {
             finalPrecio = 0.75 * precio;
         } else {
             finalPrecio = precio;

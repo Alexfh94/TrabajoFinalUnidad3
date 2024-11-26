@@ -6,9 +6,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,9 +33,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int diez = R.drawable.ofertadiez;
-        int veinte = R.drawable.ofertaventicinco;
-        int dosxuno = R.drawable.oferta2x1;
+        int diez = 1;
+        int veinte = 2;
+        int dosxuno = 3;
 
         // Crear conjunto de datos
         ArrayList<Comida> comidasArrayList = new ArrayList<>(Arrays.asList(new Comida[]{
@@ -73,14 +75,35 @@ public class MainActivity extends AppCompatActivity {
                 new Comida("Lentejas", R.drawable.lentejas1, "Lentejas estofadas con verduras y chorizo", 9.5, getRandomOferta(diez, veinte, dosxuno), Comida.TipoComida.VEGETALES),
 
         }));
-        for (int i = 0; i < comidasArrayList.size(); i++) {
-            Log.i("test", ""+comidasArrayList.get(i).getImgOferta());
-        }
+
+
+        // Referencias a los ImageButton
+        ImageButton imgButton1 = findViewById(R.id.profileImg);
+        ImageButton imgButton2 = findViewById(R.id.recentImg);
+        ImageButton imgButton3 = findViewById(R.id.settingsImg);
+        ImageButton imgButton4 = findViewById(R.id.cartImg);
+
+
+        // Configurar el OnClickListener
+        View.OnClickListener showToastListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Mostrar el Toast
+                Toast.makeText(MainActivity.this, "Coming Soon", Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        // Asignar el listener a cada ImageButton
+        imgButton1.setOnClickListener(showToastListener);
+        imgButton2.setOnClickListener(showToastListener);
+        imgButton3.setOnClickListener(showToastListener);
+        imgButton4.setOnClickListener(showToastListener);
 
 
         ArrayList<Comida> ofertaArrayList = new ArrayList<>();
         ArrayList<Comida> comidaArrayList = new ArrayList<>();
         for (int i = 0; i < comidasArrayList.size(); i++) {
+
             if(comidasArrayList.get(i).getImgOferta()!= 0){
 
                 ofertaArrayList.add(comidasArrayList.get(i));
@@ -123,10 +146,18 @@ public class MainActivity extends AppCompatActivity {
                 // Filtrar la lista según la selección
                 comidaArrayList.clear();
                 if (selectedItem.equals("Todos")) {
-                    comidaArrayList.addAll(comidasArrayList);
+
+                    for (int i = 0; i < comidasArrayList.size(); i++) {
+
+                        if (comidasArrayList.get(i).getImgOferta() == 0) {
+
+                            comidaArrayList.add(comidasArrayList.get(i));
+
+                        }
+                    }
                 } else {
                     for (Comida comida : comidasArrayList) {
-                        if (comida.getTipo().toString().equalsIgnoreCase(selectedItem)) {
+                        if (comida.getTipo().toString().equalsIgnoreCase(selectedItem) && comida.getImgOferta() == 0) {
                             comidaArrayList.add(comida);
                         }
                     }
@@ -137,9 +168,18 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {
-                // Si no hay selección, mostrar todas las comidas
-                comidaArrayList.addAll(comidasArrayList);
+                comidasArrayList.clear();
+
+                for (int i = 0; i < comidasArrayList.size(); i++) {
+
+                    if (comidasArrayList.get(i).getImgOferta() == 0) {
+
+                        comidaArrayList.add(comidasArrayList.get(i));
+
+                    }
+                }
             }
+
         });
 
 

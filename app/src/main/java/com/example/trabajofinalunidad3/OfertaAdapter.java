@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +35,30 @@ public class OfertaAdapter extends RecyclerView.Adapter<OfertaAdapter.OfertaView
         holder.imgComida.setImageResource(Comida.getImagen());
         holder.tv_titulo.setText(Comida.getTitulo());
         holder.tv_precio.setText(String.valueOf(Comida.getPrecio())+"€");
-        holder.imgOferta.setImageResource(Comida.getImgOferta());
+        int imgOfertaResId;
+        switch (Comida.getImgOferta()) {
+            case 1:
+                imgOfertaResId = R.drawable.ofertadiez; // Imagen para 10% de descuento
+                break;
+            case 2:
+                imgOfertaResId = R.drawable.ofertaventicinco; // Imagen para 25% de descuento
+                break;
+            case 3:
+                imgOfertaResId = R.drawable.oferta2x1; // Imagen para 50% de descuento
+                break;
+            default:
+                imgOfertaResId = 0; // Imagen por defecto
+                break;
+        }
+        holder.imgOferta.setImageResource(imgOfertaResId);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mensaje = Comida.getTitulo()+" "+ Comida.getPrecio()+" €" + "\n" + "Añadido al carrito.";
+                Toast.makeText(v.getContext(), mensaje, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }

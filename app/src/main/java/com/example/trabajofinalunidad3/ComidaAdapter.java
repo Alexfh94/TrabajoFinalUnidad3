@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,7 +35,15 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
         holder.imageView.setImageResource(Comida.getImagen());
         holder.tv_titulo.setText(Comida.getTitulo());
         holder.tv_descripcion.setText(Comida.getDescripcion());
-        holder.tv_precio.setText(String.valueOf(Comida.getPrecio())+"€");
+        holder.tv_precio.setText(Comida.getPrecio() +"€");
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String mensaje = Comida.getTitulo()+"\n"+ Comida.getPrecio()+" €";
+                Toast.makeText(v.getContext(), mensaje, Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
