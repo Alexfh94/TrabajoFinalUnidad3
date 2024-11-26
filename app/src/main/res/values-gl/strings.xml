@@ -3,24 +3,49 @@
     <string-array name="tipo_comida_opciones">
         <item>Todos</item>
         <item>Carne</item>
-        <item>Peixe</item>
+        <item>Pescado</item>
         <item>Vexetais</item>
         <item>Outros</item>
     </string-array>
 
     <string name="app_name">TrabajoFinalUnidad3</string>
     <string name="profile_description">Perfil</string>
-    <string name="recent_description">Recentes</string>
+    <string name="recent_description">Recientes</string>
     <string name="settings_description">Configuración</string>
-    <string name="cart_description">Cesta</string>
+    <string name="cart_description">Carrito</string>
     <string name="imagen_del_plato">Imaxe do prato</string>
     <string name="t_tulo_del_plato">Título do prato</string>
-    <string name="breve_descripci_n_del_plato_breve_descripci_n_del_plato">Breve descrición do prato</string>
-    <string name="_12_99">$12.99</string>
-    <string name="a_adir_al_carrito">Engadir á cesta</string>
+    <string name="breve_descripci_n_del_plato_breve_descripci_n_del_plato">Breve descrición do prato Breve descrición do prato</string>
+    <string name="_12_99">12,99 €</string>
+    <string name="a_adir_al_carrito">Engadir ao carrito</string>
     <string name="ofertas_del_dia">OFERTAS DO DÍA</string>
-    <string name="autoscroll">AutoScroll</string>
+    <string name="autoscroll">AutoDesplazamento</string>
     <string name="oferta">Oferta</string>
-    <string name="carrito">Cesta</string>
+    <string name="carrito">Carrito</string>
+    <string name="a_adido_al_carrito">\n Engadido ao carrito.</string>
+    <string name="todos">Todos</string>
+    <string name="TAGM">MainActivity</string>
+    <string name="error_configurando_el_spinner">Erro configurando o Spinner</string>
+    <string name="ninguna_opci_n_seleccionada_en_el_spinner">Ningunha opción seleccionada no spinner</string>
+    <string name="error_configurando_los_recyclerviews">Erro configurando os RecyclerViews</string>
+    <string name="error_configurando_los_imagebuttons">Erro configurando os ImageButtons</string>
+    <string name="coming_soon">Próximamente</string>
+    <string name="EUR">€</string>
+    <string name="TAGC">ComidaAdapter</string>
+    <string name="creando_una_nueva_vista_para_una_tarjeta_de_comida">Creando unha nova vista para unha tarxeta de comida</string>
+    <string name="posici_n_fuera_de_los_l_mites_de_la_colecci_n">"Posición fóra dos límites da colección: "</string>
+    <string name="configurando_tarjeta_para_posici_n">"Configurando tarxeta para posición: "</string>
+    <string name="tarjeta_clicada_en_la_posici_n">"Tarxeta clicada na posición: "</string>
+    <string name="bot_n_de_carrito_clicado_en_la_posici_n">"Botón de carrito clicado na posición: "</string>
+    <string name="n_mero_total_de_elementos">"Número total de elementos: "</string>
+    <string name="vista_de_tarjeta_creada">Vista de tarxeta creada</string>
+    <string name="TAGO">OfertaAdapter</string>
+    <string name="creando_una_nueva_vista_para_una_tarjeta_de_oferta">Creando unha nova vista para unha tarxeta de oferta</string>
+    <string name="posici_n_fuera_de_los_l_mites_de_la_colecci_nn">"Posición fóra dos límites da colección: "</string>
+    <string name="comida_sin_oferta_asignada_en_la_posici_n">"Comida sen oferta asignada na posición: "</string>
+    <string name="configurando_tarjeta_de_oferta_para_posici_n">"Configurando tarxeta de oferta para posición: "</string>
+    <string name="tarjeta_de_oferta_clicada_en_la_posici_n">"Tarxeta de oferta clicada na posición: "</string>
+    <string name="n_mero_total_de_elementoss">"Número total de elementos: "</string>
+    <string name="vista_de_tarjeta_de_oferta_creada">Vista de tarxeta de oferta creada</string>
 
 </resources>
