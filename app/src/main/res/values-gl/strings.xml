@@ -47,5 +47,6 @@
     <string name="tarjeta_de_oferta_clicada_en_la_posici_n">"Tarxeta de oferta clicada na posición: "</string>
     <string name="n_mero_total_de_elementoss">"Número total de elementos: "</string>
     <string name="vista_de_tarjeta_de_oferta_creada">Vista de tarxeta de oferta creada</string>
+    <string name="error_configurando_las_pesta_as">Erro configurando as pestañas</string>
 
 </resources>

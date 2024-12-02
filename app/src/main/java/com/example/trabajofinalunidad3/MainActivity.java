@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+
 
 public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnClickComida, OfertaAdapter.OnClickOferta {
 
@@ -38,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
         setContentView(R.layout.activity_main);
 
         ArrayList<Comida> comidasArrayList = generarArrayDatos();
-        setupImageButtons();
+        setupTabs();
         setupRecyclerViews(comidasArrayList);
     }
 
@@ -84,25 +87,33 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
     }
 
     // Configura los botones de imagen con toasts
-    private void setupImageButtons() {
+    private void setupTabs() {
         try {
-            ImageButton imgButton1 = findViewById(R.id.profileImg);
-            ImageButton imgButton2 = findViewById(R.id.recentImg);
-            ImageButton imgButton3 = findViewById(R.id.settingsImg);
-            ImageButton imgButton4 = findViewById(R.id.cartImg);
+            // Referencia al TabLayout
+            TabLayout tabLayout = findViewById(R.id.tabLayout);
 
-            View.OnClickListener showToastListener = v ->
-                    Toast.makeText(MainActivity.this, coming_soon, Toast.LENGTH_SHORT).show();
+            // Listener para los clicks en los tabs
+            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    // Mostrar un Snackbar con el mensaje "Próximamente"
+                    Snackbar.make(findViewById(R.id.main), "Próximamente", Snackbar.LENGTH_SHORT).show();
+                }
 
-            imgButton1.setOnClickListener(showToastListener);
-            imgButton2.setOnClickListener(showToastListener);
-            imgButton3.setOnClickListener(showToastListener);
-            imgButton4.setOnClickListener(showToastListener);
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
+                    // Aquí no es necesario hacer nada, pero se requiere la implementación del método
+                }
+
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
+                    // Aquí no es necesario hacer nada, pero se requiere la implementación del método
+                }
+            });
         } catch (Exception e) {
-            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_los_imagebuttons), e);
+            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_las_pesta_as), e);
         }
     }
-
     // Configura los RecyclerViews y el spinner
     private void setupRecyclerViews(ArrayList<Comida> comidasArrayList) {
         try {

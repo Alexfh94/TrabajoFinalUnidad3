@@ -11,78 +11,45 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Icono de perfil a la izquierda -->
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <!-- TabLayout para iconos -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal">
 
-            <ImageButton
-                android:id="@+id/profileImg"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:background="?attr/selectableItemBackground"
-                android:contentDescription="@string/profile_description"
-                android:scaleType="centerInside"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/profile" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabProfile"
+                android:icon="@drawable/profile"
+                android:contentDescription="@string/profile_description"/>
 
-            <View
-                android:id="@+id/spazer"
-                android:layout_width="110dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                app:layout_constraintStart_toEndOf="@+id/profileImg"
-                app:layout_constraintTop_toTopOf="parent" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabRecent"
+                android:icon="@drawable/recent"
+                android:contentDescription="@string/recent_description"/>
 
-            <ImageButton
-                android:id="@+id/recentImg"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="2dp"
-                android:background="?attr/selectableItemBackground"
-                android:contentDescription="@string/recent_description"
-                android:scaleType="centerInside"
-                app:layout_constraintStart_toEndOf="@+id/spazer"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/recent" />
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabSettings"
+                android:icon="@drawable/settings"
+                android:contentDescription="@string/settings_description"/>
 
-            <ImageButton
-                android:id="@+id/settingsImg"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="2dp"
-                android:background="?attr/selectableItemBackground"
-                android:contentDescription="@string/settings_description"
-                android:scaleType="centerInside"
-                app:layout_constraintStart_toEndOf="@+id/recentImg"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/settings" />
-
-            <ImageButton
-                android:id="@+id/cartImg"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="2dp"
-                android:background="?attr/selectableItemBackground"
-                android:contentDescription="@string/cart_description"
-                android:scaleType="centerInside"
-                app:layout_constraintStart_toEndOf="@+id/settingsImg"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/carrito" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabCart"
+                android:icon="@drawable/carrito"
+                android:contentDescription="@string/cart_description"/>
+        </com.google.android.material.tabs.TabLayout>
     </LinearLayout>
+
 
     <!-- Línea divisoria -->
     <View
