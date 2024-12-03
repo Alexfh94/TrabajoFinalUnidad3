@@ -1,18 +1,19 @@
 package com.example.trabajofinalunidad3;
 
-import static com.example.trabajofinalunidad3.R.string.coming_soon;
-
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,7 +44,32 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
         ArrayList<Comida> comidasArrayList = generarArrayDatos();
         setupTabs();
         setupRecyclerViews(comidasArrayList);
+
+
     }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        // Recupera el itemView desde el menú
+        View view = (View) item.getMenuInfo(); // Obtiene el view del menú
+
+
+        if(item.getItemId() == R.id.menu_detail) {
+
+            Toast.makeText(this, "Ver detalles de la comida seleccionada ", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+            if(item.getItemId() == R.id.menu_cart) {
+                // Acción para "Añadir al carrito"
+                Toast.makeText(this, "Añadir al carrito" , Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            return true;
+
+        }
+
+
 
     // Inicializa los datos y genera la lista de comidas
     private ArrayList<Comida> generarArrayDatos() {
@@ -96,18 +122,35 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {
-                    // Mostrar un Snackbar con el mensaje "Próximamente"
-                    Snackbar.make(findViewById(R.id.main), "Próximamente", Snackbar.LENGTH_SHORT).show();
+
+                    int position = tab.getPosition(); // Identifica la posición de la pestaña
+                    switch (position) {
+                        case 0: // Primera pestaña (Profile)
+                            Snackbar.make(findViewById(R.id.main), "Perfil, proximamente", Snackbar.LENGTH_SHORT).show();
+                            // Aquí puedes agregar navegación, fragmentos, etc.
+                            break;
+
+                        case 1: // Segunda pestaña (Settings)
+                            Snackbar.make(findViewById(R.id.main), "Historial, proximamente", Snackbar.LENGTH_SHORT).show();
+                            break;
+
+                        case 2: // Tercera pestaña (About)
+                            Snackbar.make(findViewById(R.id.main), "Ajustes, proximamente", Snackbar.LENGTH_SHORT).show();
+                            break;
+
+                        default: // Cualquier otra pestaña
+                            Snackbar.make(findViewById(R.id.main), "Carrito, proximamente", Snackbar.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab) {
-                    // Aquí no es necesario hacer nada, pero se requiere la implementación del método
+
                 }
 
                 @Override
                 public void onTabReselected(TabLayout.Tab tab) {
-                    // Aquí no es necesario hacer nada, pero se requiere la implementación del método
+
                 }
             });
         } catch (Exception e) {
@@ -249,4 +292,9 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
         Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
 
     }
+
 }
+
+
+
+

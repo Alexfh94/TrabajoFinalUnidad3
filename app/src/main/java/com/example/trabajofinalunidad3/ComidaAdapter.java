@@ -1,8 +1,9 @@
 package com.example.trabajofinalunidad3;
 
 import android.content.Context;
-import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -30,23 +31,17 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
      */
     @NonNull
     @Override
-    public ComidaAdapter.ComidaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        Log.d(context.getString(R.string.TAGC), context.getString(R.string.creando_una_nueva_vista_para_una_tarjeta_de_comida));
-        ComidaAdapter.ComidaViewHolder ComidaViewHolder =
-                new ComidaViewHolder(
-                        LayoutInflater.from(parent.getContext()).inflate(R.layout.ficha_comida, parent, false)
-                );
-        return ComidaViewHolder;
+    public ComidaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ficha_comida, parent, false);
+        return new ComidaViewHolder(view);
     }
 
     /**
      * Vincula los datos de una instancia de Comida con la vista correspondiente.
      */
     @Override
-    public void onBindViewHolder(@NonNull ComidaAdapter.ComidaViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ComidaViewHolder holder, int position) {
         if (position >= coleccion.size()) {
-            Log.e(context.getString(R.string.TAGC), context.getString(R.string.posici_n_fuera_de_los_l_mites_de_la_colecci_n)+ position);
             return;
         }
 
@@ -56,15 +51,14 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
         holder.tv_descripcion.setText(comida.getDescripcion());
         holder.tv_precio.setText(comida.getPrecio() + context.getString(R.string.EUR));
 
-        Log.d(context.getString(R.string.TAGC), context.getString(R.string.configurando_tarjeta_para_posici_n)+ position);
+        holder.itemView.setTag(position);
+
 
         holder.itemView.setOnClickListener(v -> {
-            Log.d(context.getString(R.string.TAGC), context.getString(R.string.tarjeta_clicada_en_la_posici_n)+ position);
             listener.onClickCardComida(v, holder.getAdapterPosition());
         });
 
         holder.btnAccion.setOnClickListener(v -> {
-            Log.d(context.getString(R.string.TAGC), context.getString(R.string.bot_n_de_carrito_clicado_en_la_posici_n)+ position);
             listener.onClickCarrito(v, holder.getAdapterPosition());
         });
     }
@@ -74,14 +68,13 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
      */
     @Override
     public int getItemCount() {
-        Log.d(context.getString(R.string.TAGC), context.getString(R.string.n_mero_total_de_elementos)+ coleccion.size());
         return coleccion.size();
     }
 
     /**
      * Representa la vista individual de cada elemento del RecyclerView.
      */
-    public class ComidaViewHolder extends RecyclerView.ViewHolder {
+    public class ComidaViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
         ImageView imageView;
         TextView tv_titulo;
         TextView tv_descripcion;
@@ -95,8 +88,19 @@ public class ComidaAdapter extends RecyclerView.Adapter<ComidaAdapter.ComidaView
             tv_descripcion = itemView.findViewById(R.id.tv_descripcion);
             tv_precio = itemView.findViewById(R.id.tv_precio);
             btnAccion = itemView.findViewById(R.id.btnCarrito);
-            Log.d(context.getString(R.string.TAGC), context.getString(R.string.vista_de_tarjeta_creada));
+            itemView.setOnCreateContextMenuListener(this); // Registra el menú contextual en el item
         }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+            MenuInflater inflater = ((MainActivity) itemView.getContext()).getMenuInflater();
+            inflater.inflate(R.menu.context_menu, menu); // Inflar el menú
+
+            // Añadir la posición al menú para utilizarla más tarde
+            int position = getAdapterPosition();
+            v.setTag(position); // Guardar la posición en el itemView
+        }
+
     }
 
     /**
