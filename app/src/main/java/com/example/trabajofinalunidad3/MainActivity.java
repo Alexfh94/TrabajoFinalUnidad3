@@ -1,10 +1,9 @@
 package com.example.trabajofinalunidad3;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,11 +14,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
@@ -44,32 +47,25 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
         ArrayList<Comida> comidasArrayList = generarArrayDatos();
         setupTabs();
         setupRecyclerViews(comidasArrayList);
+        this.setRequestedOrientation(
+                ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
 
+
+        // Configurar BottomNavigationView
+        BottomNavigationView menu = findViewById(R.id.topMenu);
+
+
+
+        menu.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+                return false;
+            }
+        });
 
     }
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        // Recupera el itemView desde el menú
-        View view = (View) item.getMenuInfo(); // Obtiene el view del menú
-
-
-        if(item.getItemId() == R.id.menu_detail) {
-
-            Toast.makeText(this, "Ver detalles de la comida seleccionada ", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-            if(item.getItemId() == R.id.menu_cart) {
-                // Acción para "Añadir al carrito"
-                Toast.makeText(this, "Añadir al carrito" , Toast.LENGTH_SHORT).show();
-                return true;
-            }
-
-            return true;
-
-        }
-
-
 
     // Inicializa los datos y genera la lista de comidas
     private ArrayList<Comida> generarArrayDatos() {

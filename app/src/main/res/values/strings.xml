@@ -48,6 +48,8 @@
     <string name="n_mero_total_de_elementoss">"Número total de elementos: "</string>
     <string name="vista_de_tarjeta_de_oferta_creada">Vista de tarjeta de oferta creada</string>
     <string name="error_configurando_las_pesta_as">Error configurando las pestañas</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

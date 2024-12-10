@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- TabLayout para iconos -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabProfile"
+                android:icon="@drawable/profile"
+                android:contentDescription="@string/profile_description"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabRecent"
+                android:icon="@drawable/recent"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:contentDescription="@string/recent_description"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabSettings"
+                android:icon="@drawable/settings"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:contentDescription="@string/settings_description"/>
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tabCart"
+                android:icon="@drawable/carrito"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:contentDescription="@string/cart_description"/>
+        </com.google.android.material.tabs.TabLayout>
+    </LinearLayout>
+
+
+    <!-- Línea divisoria -->
+    <View
+        android:id="@+id/separator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="4dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <!-- Spinner para seleccionar la categoría -->
+
+    <!-- RecyclerView -->
+    <Spinner
+        android:id="@+id/spinner_tipo_comida"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:entries="@array/tipo_comida_opciones"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/separator" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_Comidas"
+        android:layout_width="450dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner_tipo_comida" />
+
+    <View
+        android:id="@+id/separator2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="2dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rv_Comidas" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
+        android:text="@string/ofertas_del_dia"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/switch1"
+        app:layout_constraintTop_toBottomOf="@+id/separator" />
+
+    <Switch
+        android:id="@+id/switch1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:checked="true"
+        android:minHeight="48dp"
+        android:text="@string/autoscroll"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_Ofertas"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/rv_Comidas"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

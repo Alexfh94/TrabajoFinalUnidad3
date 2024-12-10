@@ -32,9 +32,8 @@ android {
 }
 
 dependencies {
-
     implementation(libs.appcompat)
-    implementation(libs.material)
+    implementation(libs.material)  // Utilizando el alias de material
     implementation(libs.activity)
     implementation(libs.constraintlayout)
     testImplementation(libs.junit)
