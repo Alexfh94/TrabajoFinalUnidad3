@@ -43,28 +43,70 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         ArrayList<Comida> comidasArrayList = generarArrayDatos();
         setupTabs();
         setupRecyclerViews(comidasArrayList);
-        this.setRequestedOrientation(
-                ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        setupTopNavigationBar();
 
+    }
 
-        // Configurar BottomNavigationView
+    // Inicializa y configura la NavigationBar, junto con los onclick para acceder a cada fragmento
+    private void setupTopNavigationBar() {
         BottomNavigationView menu = findViewById(R.id.topMenu);
-
-
-
         menu.setOnItemSelectedListener(new BottomNavigationView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.menu_home) {
+                    MainFragment fragment = new MainFragment();
 
+                    Bundle args = new Bundle();
+                    args.putParcelableArrayList("comidaList", generarArrayDatos());
+                    fragment.setArguments(args);
+
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                    fragmentTransaction.commit();
+                    return true;
+                }
+
+                if (item.getItemId() == R.id.menu_perfil) {
+                    PerfilFragment fragment = new PerfilFragment();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                    fragmentTransaction.commit();
+                    return true;
+                }
+                if (item.getItemId() == R.id.menu_reciente) {
+                    RecienteFragment fragment = new RecienteFragment();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                    fragmentTransaction.commit();
+                    return true;
+                }
+                if (item.getItemId() == R.id.menu_settings) {
+                    SettingsFragment fragment = new SettingsFragment();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                    fragmentTransaction.commit();
+                    return true;
+                }
+                if (item.getItemId() == R.id.menu_carrito) {
+                    CarritoFragment fragment = new CarritoFragment();
+                    FragmentManager fragmentManager = getSupportFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+                    fragmentTransaction.commit();
+                    return true;
+                }
 
                 return false;
             }
         });
-
     }
 
     // Inicializa los datos y genera la lista de comidas

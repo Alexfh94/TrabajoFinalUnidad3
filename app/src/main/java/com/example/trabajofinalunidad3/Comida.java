@@ -1,6 +1,9 @@
 package com.example.trabajofinalunidad3;
 
-public class Comida {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Comida implements Parcelable {
     private String titulo;
     private int imagen; // Ruta o URL de la imagen
     private String descripcion;
@@ -26,6 +29,40 @@ public class Comida {
         this.imgOferta=imgOferta;
         this.tipo=tipo;
     }
+
+    protected Comida(Parcel in) {
+        titulo = in.readString();
+        imagen = in.readInt();
+        descripcion = in.readString();
+        precio = in.readDouble();
+        imgOferta = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(titulo);
+        dest.writeInt(imagen);
+        dest.writeString(descripcion);
+        dest.writeDouble(precio);
+        dest.writeInt(imgOferta);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Comida> CREATOR = new Creator<Comida>() {
+        @Override
+        public Comida createFromParcel(Parcel in) {
+            return new Comida(in);
+        }
+
+        @Override
+        public Comida[] newArray(int size) {
+            return new Comida[size];
+        }
+    };
 
     // Getters y Setters
     public String getTitulo() {
