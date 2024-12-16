@@ -27,7 +27,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 
-public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnClickComida, OfertaAdapter.OnClickOferta {
+public class MainActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
     private Runnable runnable;
@@ -44,10 +44,21 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ArrayList<Comida> comidasArrayList = generarArrayDatos();
-        setupTabs();
-        setupRecyclerViews(comidasArrayList);
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
         setupTopNavigationBar();
+
+        if (savedInstanceState == null) {
+            MainFragment fragment = new MainFragment();
+
+            Bundle args = new Bundle();
+            args.putParcelableArrayList("comidaList", comidasArrayList);
+            fragment.setArguments(args);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContainer, fragment);
+            fragmentTransaction.commit();
+        }
 
     }
 
@@ -150,149 +161,6 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
                 ));
     }
 
-    // Configura los botones de imagen con toasts
-    private void setupTabs() {
-        try {
-            // Referencia al TabLayout
-            TabLayout tabLayout = findViewById(R.id.tabLayout);
-
-            // Listener para los clicks en los tabs
-            tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-                @Override
-                public void onTabSelected(TabLayout.Tab tab) {
-
-                    int position = tab.getPosition(); // Identifica la posición de la pestaña
-                    switch (position) {
-                        case 0: // Primera pestaña (Profile)
-                            Snackbar.make(findViewById(R.id.main), "Perfil, proximamente", Snackbar.LENGTH_SHORT).show();
-                            // Aquí puedes agregar navegación, fragmentos, etc.
-                            break;
-
-                        case 1: // Segunda pestaña (Settings)
-                            Snackbar.make(findViewById(R.id.main), "Historial, proximamente", Snackbar.LENGTH_SHORT).show();
-                            break;
-
-                        case 2: // Tercera pestaña (About)
-                            Snackbar.make(findViewById(R.id.main), "Ajustes, proximamente", Snackbar.LENGTH_SHORT).show();
-                            break;
-
-                        default: // Cualquier otra pestaña
-                            Snackbar.make(findViewById(R.id.main), "Carrito, proximamente", Snackbar.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onTabUnselected(TabLayout.Tab tab) {
-
-                }
-
-                @Override
-                public void onTabReselected(TabLayout.Tab tab) {
-
-                }
-            });
-        } catch (Exception e) {
-            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_las_pesta_as), e);
-        }
-    }
-    // Configura los RecyclerViews y el spinner
-    private void setupRecyclerViews(ArrayList<Comida> comidasArrayList) {
-        try {
-            ofertaArrayList = new ArrayList<>();
-            comidaArrayList = new ArrayList<>();
-
-            for (Comida comida : comidasArrayList) {
-                if (comida.getImgOferta() != 0) {
-                    ofertaArrayList.add(comida);
-                } else {
-                    comidaArrayList.add(comida);
-                }
-            }
-
-            ComidaAdapter comidaAdapter = new ComidaAdapter(comidaArrayList, MainActivity.this, this);
-            OfertaAdapter ofertaAdapter = new OfertaAdapter(ofertaArrayList, MainActivity.this, this);
-
-            RecyclerView rvComidas = findViewById(R.id.rv_Comidas);
-            RecyclerView rvOfertas = findViewById(R.id.rv_Ofertas);
-
-            rvComidas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-            rvOfertas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-            rvComidas.setAdapter(comidaAdapter);
-            rvOfertas.setAdapter(ofertaAdapter);
-
-            setupSpinner(comidasArrayList, comidaArrayList, comidaAdapter);
-            setupAutoScroll(rvOfertas, ofertaArrayList, ofertaAdapter);
-        } catch (Exception e) {
-            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_los_recyclerviews), e);
-        }
-    }
-
-    // Configura el Spinner para filtrar tipos de comida
-    private void setupSpinner(ArrayList<Comida> comidasArrayList, ArrayList<Comida> comidaArrayList, ComidaAdapter comidaAdapter) {
-        try {
-            Spinner spinnerTipoComida = findViewById(R.id.spinner_tipo_comida);
-            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tipo_comida_opciones, android.R.layout.simple_spinner_item);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            spinnerTipoComida.setAdapter(adapter);
-
-            spinnerTipoComida.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    String selectedItem = (String) parent.getItemAtPosition(position);
-                    filtroComidas(comidasArrayList, comidaArrayList, selectedItem);
-                    comidaAdapter.notifyDataSetChanged();
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-                    Log.w(getString(R.string.TAGM), getString(R.string.ninguna_opci_n_seleccionada_en_el_spinner));
-                }
-            });
-        } catch (Exception e) {
-            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_el_spinner), e);
-        }
-    }
-
-    // Filtra las comidas según el tipo seleccionado
-    private void filtroComidas(ArrayList<Comida> comidasArrayList, ArrayList<Comida> comidaArrayList, String selectedItem) {
-        comidaArrayList.clear();
-        for (Comida comida : comidasArrayList) {
-            if ((selectedItem.equals(getString(R.string.todos)) || comida.getTipo().toString().equalsIgnoreCase(selectedItem) )&& comida.getImgOferta()==0 ) {
-                comidaArrayList.add(comida);
-            }
-        }
-    }
-
-    // Configura el autoscroll del RecyclerView de ofertas
-    private void setupAutoScroll(RecyclerView rvOfertas, ArrayList<Comida> ofertaArrayList, OfertaAdapter ofertaAdapter) {
-        final int speedScroll = 3000;
-        runnable = () -> {
-            Comida comidaActual = ofertaArrayList.get(lastPosition);
-            ofertaArrayList.add(comidaActual);
-            ofertaAdapter.notifyItemInserted(ofertaArrayList.size() - 1);
-
-            rvOfertas.smoothScrollToPosition(lastPosition++);
-            if (isAutoScrollEnabled) {
-                handler.postDelayed(runnable, speedScroll);
-            }
-        };
-
-        Switch autoScrollSwitch = findViewById(R.id.switch1);
-        autoScrollSwitch.setChecked(true);
-        autoScrollSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            isAutoScrollEnabled = isChecked;
-            if (isChecked) {
-                handler.postDelayed(runnable, speedScroll);
-            } else {
-                handler.removeCallbacks(runnable);
-            }
-        });
-
-        if (isAutoScrollEnabled) {
-            handler.postDelayed(runnable, speedScroll);
-        }
-    }
 
     // Genera una oferta aleatoria
     private int getRandomOferta() {
@@ -300,36 +168,138 @@ public class MainActivity extends AppCompatActivity implements ComidaAdapter.OnC
         return random.nextInt(2) == 0 ? 0 : ofertas[random.nextInt(ofertas.length)];
     }
 
-    // Metodo para la funcion al hacer click en el boton "Añadir al carrito" del RecyclerView de comidas
-    @Override
-    public void onClickCarrito(View view, int position) {
 
-       Comida comida =comidaArrayList.get(position);
 
-        String mensaje = comida.getTitulo()+getString(R.string.a_adido_al_carrito);
-        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
-    }
+//    // Configura los RecyclerViews y el spinner
+//    private void setupRecyclerViews(ArrayList<Comida> comidasArrayList) {
+//        try {
+//            ofertaArrayList = new ArrayList<>();
+//            comidaArrayList = new ArrayList<>();
+//
+//            for (Comida comida : comidasArrayList) {
+//                if (comida.getImgOferta() != 0) {
+//                    ofertaArrayList.add(comida);
+//                } else {
+//                    comidaArrayList.add(comida);
+//                }
+//            }
+//
+//            ComidaAdapter comidaAdapter = new ComidaAdapter(comidaArrayList, MainActivity.this, this);
+//            OfertaAdapter ofertaAdapter = new OfertaAdapter(ofertaArrayList, MainActivity.this, this);
+//
+//            RecyclerView rvComidas = findViewById(R.id.rv_Comidas);
+//            RecyclerView rvOfertas = findViewById(R.id.rv_Ofertas);
+//
+//            rvComidas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//            rvOfertas.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+//
+//            rvComidas.setAdapter(comidaAdapter);
+//            rvOfertas.setAdapter(ofertaAdapter);
+//
+//            setupSpinner(comidasArrayList, comidaArrayList, comidaAdapter);
+//            setupAutoScroll(rvOfertas, ofertaArrayList, ofertaAdapter);
+//        } catch (Exception e) {
+//            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_los_recyclerviews), e);
+//        }
+//    }
+//
+//    // Configura el Spinner para filtrar tipos de comida
+//    private void setupSpinner(ArrayList<Comida> comidasArrayList, ArrayList<Comida> comidaArrayList, ComidaAdapter comidaAdapter) {
+//        try {
+//            Spinner spinnerTipoComida = findViewById(R.id.spinner_tipo_comida);
+//            ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.tipo_comida_opciones, android.R.layout.simple_spinner_item);
+//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//            spinnerTipoComida.setAdapter(adapter);
+//
+//            spinnerTipoComida.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                @Override
+//                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                    String selectedItem = (String) parent.getItemAtPosition(position);
+//                    filtroComidas(comidasArrayList, comidaArrayList, selectedItem);
+//                    comidaAdapter.notifyDataSetChanged();
+//                }
+//
+//                @Override
+//                public void onNothingSelected(AdapterView<?> parent) {
+//                    Log.w(getString(R.string.TAGM), getString(R.string.ninguna_opci_n_seleccionada_en_el_spinner));
+//                }
+//            });
+//        } catch (Exception e) {
+//            Log.e(getString(R.string.TAGM), getString(R.string.error_configurando_el_spinner), e);
+//        }
+//    }
+//
+//    // Filtra las comidas según el tipo seleccionado
+//    private void filtroComidas(ArrayList<Comida> comidasArrayList, ArrayList<Comida> comidaArrayList, String selectedItem) {
+//        comidaArrayList.clear();
+//        for (Comida comida : comidasArrayList) {
+//            if ((selectedItem.equals(getString(R.string.todos)) || comida.getTipo().toString().equalsIgnoreCase(selectedItem) )&& comida.getImgOferta()==0 ) {
+//                comidaArrayList.add(comida);
+//            }
+//        }
+//    }
+//
+//    // Configura el autoscroll del RecyclerView de ofertas
+//    private void setupAutoScroll(RecyclerView rvOfertas, ArrayList<Comida> ofertaArrayList, OfertaAdapter ofertaAdapter) {
+//        final int speedScroll = 3000;
+//        runnable = () -> {
+//            Comida comidaActual = ofertaArrayList.get(lastPosition);
+//            ofertaArrayList.add(comidaActual);
+//            ofertaAdapter.notifyItemInserted(ofertaArrayList.size() - 1);
+//
+//            rvOfertas.smoothScrollToPosition(lastPosition++);
+//            if (isAutoScrollEnabled) {
+//                handler.postDelayed(runnable, speedScroll);
+//            }
+//        };
+//
+//        Switch autoScrollSwitch = findViewById(R.id.switch1);
+//        autoScrollSwitch.setChecked(true);
+//        autoScrollSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            isAutoScrollEnabled = isChecked;
+//            if (isChecked) {
+//                handler.postDelayed(runnable, speedScroll);
+//            } else {
+//                handler.removeCallbacks(runnable);
+//            }
+//        });
+//
+//        if (isAutoScrollEnabled) {
+//            handler.postDelayed(runnable, speedScroll);
+//        }
+//    }
+//
+//    // Metodo para la funcion al hacer click en el boton "Añadir al carrito" del RecyclerView de comidas
+//    @Override
+//    public void onClickCarrito(View view, int position) {
+//
+//       Comida comida =comidaArrayList.get(position);
+//
+//        String mensaje = comida.getTitulo()+getString(R.string.a_adido_al_carrito);
+//        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+//    }
+//
+//    // Metodo para la funcion al hacer click en el elemento del RecyclerView de comidas, fuera del boton
+//    @Override
+//    public void onClickCardComida(View view, int position) {
+//
+//        Comida comida =comidaArrayList.get(position);
+//
+//        String mensaje = comida.getTitulo()+"\n " + comida.getPrecio()+getString(R.string.EUR);
+//        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+//
+//    }
+//
+//    // Metodo para la funcion al hacer click en el elemento del RecyclerView de ofertas
+//    public void onClickCardOferta(View view, int position) {
+//
+//        Comida comida =ofertaArrayList.get(position);
+//
+//        String mensaje = comida.getTitulo()+" "+comida.getPrecio()+getString(R.string.EUR)+getString(R.string.a_adido_al_carrito);
+//        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+//
+//    }
 
-    // Metodo para la funcion al hacer click en el elemento del RecyclerView de comidas, fuera del boton
-    @Override
-    public void onClickCardComida(View view, int position) {
-
-        Comida comida =comidaArrayList.get(position);
-
-        String mensaje = comida.getTitulo()+"\n " + comida.getPrecio()+getString(R.string.EUR);
-        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
-
-    }
-
-    // Metodo para la funcion al hacer click en el elemento del RecyclerView de ofertas
-    public void onClickCardOferta(View view, int position) {
-
-        Comida comida =ofertaArrayList.get(position);
-
-        String mensaje = comida.getTitulo()+" "+comida.getPrecio()+getString(R.string.EUR)+getString(R.string.a_adido_al_carrito);
-        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_SHORT).show();
-
-    }
 
 }
 
